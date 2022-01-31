@@ -1,0 +1,330 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[margin=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage[vcentermath]{youngtab}
+
+\titleformat{\section}
+  {\normalfont\fontsize{16}{16}\bfseries}{\thesection}{1em}{}
+
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\ket}[1]{\left| #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right|}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\diag}{\text{diag}}
+\DeclareMathOperator{\SO}{\text{SO}}
+\DeclareMathOperator{\SU}{\text{SU}}
+\DeclareMathOperator{\T}{\text{T}}
+\DeclareMathOperator{\Tbar}{\overline{\text{T}}}
+\newcommand{\Deltatilde}{\widetilde{\Delta}}
+\newcommand\yngsub[1]{{\tiny \, \yng(#1)}}
+
+% double angle-bracket notation:
+\makeatletter
+\newsavebox{\@brx}
+\newcommand{\llangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
+  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\rrangle}[1][]{\savebox{\@brx}{\(\m@th{#1\rangle}\)}%
+  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{TTTT conformal blocks}
+
+\author{Marc Gillioz}
+
+\date{\today}
+
+\begin{document} 
+
+\begin{center}
+
+\Large
+$\langle TTTT \rangle$ conformal blocks
+
+\end{center}
+
+\subsection*{Definition}
+
+This note describes the computation of conformal blocks for the imaginary part of the time-ordered correlation function of four energy-momentum tensors $T^{\mu\nu}$,
+\begin{equation}
+	G = e_1^{\mu_1\nu_1} e_2^{\mu_2\nu_2} 
+	e_3^{\mu_3\nu_3} e_4^{\mu_4\nu_4}
+	\llangle
+	\T \left[ T_{\mu_3\nu_3}(p_3) T_{\mu_4\nu_4}(p_4) \right]^\dagger
+	\T\left[ T_{\mu_1\nu_1}(p_1) T_{\mu_2\nu_2}(p_2) \right] \rrangle
+\end{equation}
+in $d$ space-time dimensions (one time and $d - 1$ space dimensions).
+The $e_i$ are external polarization tensors that we are free to choose.
+We are interested in the ``massless'' limit
+\begin{equation}
+	p_1^2 = p_2^2 = p_3^2 = p_4^2 = 0,
+\end{equation}
+and in the forward scattering limit
+\begin{equation}
+	p_3 = p_1, 
+	\qquad
+	p_4 = p_2
+	\qquad
+	e_1 = e_3^*
+	\qquad
+	e_2 = e_4^*.
+\end{equation}
+For simplicity we shall denote
+\begin{equation}
+	T_i(p_i) = e_i^{\mu\nu} T_{\mu\nu}(p_i),
+\end{equation}
+so that
+\begin{equation}
+	G = \llangle
+	\T \left[ T_1(p_1) T_2(p_2) \right]^\dagger
+	\T\left[ T_1(p_1) T_2(p_2) \right] \rrangle.
+\end{equation}
+Note that the energy-momentum tensor is a real operator, meaning that in position space $T^{\mu\nu}(x)^\dagger = T^{\mu\nu}(x)$, and therefore in momentum space $T^{\mu\nu}(p_i)^\dagger = T^{\mu\nu}(-p_i)$.
+
+\subsection*{OPE}
+
+The state/operator correspondence in CFT implies that this correlation function can be expanded as a sum
+\begin{equation}
+	G = \sum_\O G_\O,
+\end{equation}
+where $\O$ is a primary operator and
+\begin{equation}
+	G_\O = \frac{\llangle \T \left[ T_1(p_1) T_2(p_2) \right]^\dagger
+	\O^\beta(p) \rrangle
+	\llangle \O^\alpha(-p)
+	\T \left[ T_1(p_1) T_2(p_2) \right] \rrangle}
+	{\llangle \O^\alpha(-p) \O^\beta(p) \rrangle},
+\end{equation}
+where we have denoted $p = p_1 + p_2$ (assumed to be inside the forward light cone so that $p^2 > 0$), and $\alpha$, $\beta$ denote collectively the Lorentz indices of the operator $\O$.
+Dividing by the 2-point function of $\O$ in this equation means multiplying by the inverse tensor structure:
+by Poincaré and scale symmetry, we must have
+\begin{equation}
+	\llangle \O^\alpha(-p) \O^\beta(p) \rrangle
+	= (p^2)^{\Delta - d/2} \Pi^{\alpha\beta}(\hat{p})
+\end{equation}
+where $\Delta$ is the scaling dimension of the operator $\O$ and $\Pi$ is a dimensionless tensor written in terms of $\hat{p}^\mu = p^\mu / \sqrt{p^2}$ and $\eta^{\mu\nu}$. If we denote with $\Pi^{-1}_{\beta\alpha}$ the inverse tensor, i.e.~
+\begin{equation}
+	\Pi^{\alpha\beta}(\hat{p})\Pi^{-1}_{\beta\alpha'}(\hat{p}) 
+	= \delta^\alpha_{\alpha'},
+\end{equation}
+where the right-hand side indicates the invariant tensor in this particular representation of the Lorentz group, then the conformal block is equal to
+\begin{equation}
+\begin{aligned}
+	G_\O &= (p^2)^{d/2 - \Delta} \Pi^{-1}_{\beta\alpha}(\hat{p})
+	\\
+	& \quad \times
+	\llangle \T \left[ T_1(p_1) T_2(p_2) \right]^\dagger
+	\O^\beta(p) \rrangle
+	\llangle \O^\alpha(-p)
+	\T\left[ T_1(p_1) T_2(p_2) \right] \rrangle.
+\end{aligned}
+\label{eq:conformalblock}
+\end{equation}
+
+\subsection*{Unitarity}
+
+In a unitary theory, the 2-point function of the primary operator $\O$ is positive-definite, which means that it can be diagonalized in terms of an orthogonal set of polarization tensors $\varepsilon_i$,
+\begin{equation}
+	\Pi^{\alpha\beta}(\hat{p})
+	= \sum_i \mathcal{N}_i \, 
+	\varepsilon_i^\alpha(-\hat{p}) \varepsilon_i^\beta(\hat{p}),
+\end{equation}
+with positive coefficients $\mathcal{N}_i > 0$. The number of polarization tensors depends on which representation of the Lorentz group the operator $\O$ transforms in, and also on the scaling dimension $\Delta$: there are fewer polarizations if $\Delta$ saturates the unitarity bound, i.e.~if $\O$ is in a short representation of the conformal group.
+
+The polarization tensors can always be chosen to form an orthonormal set such that
+\begin{equation}
+	\varepsilon_i^\alpha(\hat{p})
+	\varepsilon_{j\alpha}(\hat{p}) = \delta_{ij},
+\end{equation}
+and moreover to be real in the sense that
+\begin{equation}
+	\left[ \varepsilon_i^\alpha(\hat{p}) \right]^*
+	= \varepsilon_i^\alpha(-\hat{p}).
+\end{equation}
+This implies that the inverse tensor structure is simply given by
+\begin{equation}
+	\Pi^{-1}_{\beta\alpha}(\hat{p})
+	= \sum_i \mathcal{N}_i^{-1} 
+	\varepsilon_{i\beta}(\hat{p})
+	\varepsilon_{i\alpha}(-\hat{p}).
+\end{equation}
+If we plug this relation into the conformal block \eqref{eq:conformalblock}, we get
+\begin{equation}
+	G_\O = (p^2)^{d/2 - \Delta} \sum_i \mathcal{N}_i^{-1} 
+	\Big| \varepsilon_{i\alpha}(-\hat{p})
+	\llangle \O^\alpha(-p)
+	\T\left[ T_1(p_1) T_2(p_2) \right] \rrangle \Big|^2
+	\geq 0.
+\end{equation}
+This shows that the conformal blocks are positive in a unitary theory.
+
+
+\subsection*{Analyticity in \emph{d}}
+
+The basis of polarization tensors $\varepsilon_i^\alpha$ is convenient to show positivity of the conformal blocks, but it is not well-suited to perform an analytic continuation in $d$, as their construction relies explicitly on the space-time dimension.
+Instead, we can obtain expressions for the conformal blocks that are analytic in $d$ by using a different basis for the tensor structure of the 2-point function. The crucial assumption that we are making is  that the totally antisymmetric tensor $\varepsilon^{\mu_1 \mu_2 \cdots \mu_d}$ does not appear in the 2-point function. In other words, we will be restricting our computations to parity-invariant theories.
+
+Under this assumption, the tensor $\Pi^{\alpha\beta}(\hat{p})$ is a function of $\hat{p}^\mu$ and $\eta^{\mu\nu}$ only. We can equivalently write it as a function of $\hat{p}^\mu$ and of the transverse projector
+\begin{equation}
+	\eta_\perp^{\mu\nu} = \eta^{\mu\nu} - \hat{p}^\mu \hat{p}^\nu.
+\end{equation}
+This has the advantage of exposing the $\SO(d-1)$ symmetry of the 2-point function: in the center-of-mass frame in which $\hat{p} = (1, 0, \ldots, 0)$, the tensor $\Pi^{\alpha\beta}(\hat{p})$ can be decomposed into irreducible representations of the rotation group $\SO(d-1)$.
+
+To give a concrete example, the tensor structure for a 2-index symmetric operator must be a linear combination of three terms,
+\begin{equation}
+	\Pi^{\mu\nu,\rho\sigma}(\hat{p})
+	= \sum_{i = 0}^2 c_i \pi_i^{\mu\nu,\rho\sigma}(\hat{p}),
+\end{equation}
+each symmetric and traceless in both pairs of indices $(\mu,\nu)$ and $(\rho, \sigma)$,
+where
+\begin{equation}
+	\pi_2^{\mu\nu,\rho\sigma}(\hat{p})
+	= \frac{1}{2} \left( \eta_\perp^{\mu\rho} \eta_\perp^{\nu\sigma}
+	+ \eta_\perp^{\mu\sigma} \eta_\perp^{\nu\rho} \right)
+	- \frac{1}{d-1} \eta_\perp^{\mu\nu} \eta_\perp^{\rho\sigma},
+	\label{eq:pi:2index:2}
+\end{equation}
+which is the invariant tensor for the 2-index symmetric and traceless representations of $\SO(d-1)$,
+\begin{equation}
+	\pi_1^{\mu\nu,\rho\sigma}(\hat{p})
+	= \frac{1}{2} \left(
+	\hat{p}^\mu \hat{p}^\rho \eta_\perp^{\nu\sigma}
+	+ \hat{p}^\mu \hat{p}^\sigma \eta_\perp^{\nu\rho}
+	+ \hat{p}^\nu \hat{p}^\rho \eta_\perp^{\mu\sigma}
+	+ \hat{p}^\nu \hat{p}^\sigma \eta_\perp^{\mu\rho} \right),
+	\label{eq:pi:2index:1}
+\end{equation}
+which is a combination of $\hat{p}$ and of the invariant tensor for the vector representation of $\SO(d-1)$, and
+\begin{equation}
+	\pi_0^{\mu\nu,\rho\sigma}(\hat{p})
+	= \frac{d-1}{d} \hat{p}^\mu \hat{p}^\nu \hat{p}^\rho \hat{p}^\sigma
+	- \frac{1}{d} \left( 
+	\eta_\perp^{\mu\nu} \hat{p}^\rho \hat{p}^\sigma
+	+ \hat{p}^\mu \hat{p}^\nu \eta_\perp^{\rho \sigma} \right)
+	+ \frac{1}{d (d-1)} \eta_\perp^{\mu\nu} \eta_\perp^{\rho \sigma}
+	\label{eq:pi:2index:0}
+\end{equation}
+which is invariant under $\SO(d-1)$.
+The linear combination of these 3 terms is the most general ansatz compatible with Poincar\'e and scale symmetry. Adding the constraint of special conformal symmetry, which takes the form of a second-order partial differential equation in $p$, one obtains a relation between the coefficients $c_i$, namely
+\begin{equation}
+	c_1 = \frac{\Delta - d}{\Delta} \, c_0,
+	\qquad\qquad
+	c_2 = 
+	\frac{(\Delta - d) (\Delta - d + 1)}{\Delta (\Delta - 1)} \, c_0.
+	\label{eq:c:twoindex}
+\end{equation}
+The only undetermined coefficient $c_0$ is related to the normalization of the operator. We can adopt the convention $c_0 = 1$. When $\Delta > d$, all coefficients $c_i$ are positive. When $\Delta = d$, we have $c_1 = c_2 = 0$: in this case the operator is a conserved current that only has transverse polarizations (it is the energy-momentum tensor itself). $\Delta \geq d$ is precisely the unitarity bound for a 2-index symmetric tensor.
+
+This construction can be generalized to operators transforming in other representations of the Lorentz group. In all cases, the 2-point function can be decomposed into tensor structures
+\begin{equation}
+	\Pi^{\alpha\beta}(\hat{p})
+	= \sum_i c_i \pi_i^{\alpha\beta}(\hat{p}),
+\end{equation}
+where the $\pi_i^{\alpha\beta}$ are invariant tensors of $\SO(d-1)$ multiplied with $\hat{p}$ (possibly subtracting traces among the indices $\alpha$ and $\beta$ separately).
+The tensors $\pi_i^{\alpha\beta}$ are orthogonal to each other by construction ($\hat{p}$ and $\eta_\perp$ are orthogonal). Moreover, it is always possible to normalize them such that they are their own inverse, as we did in eqs.~\eqref{eq:pi:2index:2}--\eqref{eq:pi:2index:0}.
+Unitarity implies that all coefficients $c_i$ are non-negative, and therefore the inverse tensor is simply given by
+\begin{equation}
+	\Pi^{-1}_{\alpha\beta}(\hat{p})
+	= \sum_{i: \, c_i \neq 0}
+	c_i^{-1} \pi_{i\alpha\beta}(\hat{p}).
+\end{equation}
+As indicated, the sum is over all terms for which $c_i \neq 0$. 
+
+From this point on, the computation of the conformal blocks proceeds straightforwardly. One needs first to evaluate the 3-point function. This is done solving Ward identities imposing conformal invariance and the conservation of the energy-momentum tensor.
+Coming back to our example of a 2-index symmetric tensor operator, we find two possible tensor structures,
+\begin{equation}
+	\llangle O^{\mu\nu}(-p)
+ 	\T\left[ T_1(p_1) T_2(p_2) \right] \rrangle
+ 	= (p^2)^{\Delta/2} \left( \lambda_1 t_1^{\mu\nu}
+ 	+ \lambda_2 t_2^{\mu\nu} \right),
+\end{equation}
+where $\lambda_1$ and $\lambda_2$ are OPE coefficients, and we have defined
+\begin{align}
+	t_1^{\mu\nu}
+	&= \frac{1}{2} \left[ (e_1 \cdot e_2)^{\mu\nu}
+	+ (e_1 \cdot e_2)^{\nu\mu} \right]
+	- \frac{1}{d} \tr(e_1 \cdot e_2) \eta^{\mu\nu}
+	+ \left( \frac{q^\mu q^\nu}{p^2}
+	+ \frac{1}{d} \eta^{\mu\nu} \right),
+	\\
+	t_2^{\mu\nu}
+	&= \left[ \frac{1}{\Delta - 1}
+	\left( \frac{p^\mu p^\nu}{p^2}
+	- \frac{1}{d} \eta^{\mu\nu} \right)
+	- \left( \frac{q^\mu q^\nu}{p^2}
+	+ \frac{1}{d} \eta^{\mu\nu} \right) \right] 
+	\tr(e_1 \cdot e_2),
+\end{align}
+in terms of the exchange momentum $q = p_1 - p_2$, satisfying $q^2 = -p^2$.
+Note that this is a simplified result assuming that $e_1$ and $e_2$ are each transverse with respect to both $p_1$ and $p_2$; there are additional terms when this is not the case.
+After contracting the indices of the inverse 2-point tensor with this 3-point function squared, we arrive finally at
+\begin{equation}
+\begin{aligned}
+	G_\O = (p^2)^{d/2} \bigg[ &
+	\left(
+	\frac{1}{2} \tr(e_1 \cdot e_2 \cdot e_1 \cdot e_2)
+	+ \frac{1}{2} \tr(e_1 \cdot e_1 \cdot e_2 \cdot e_2)
+	- \frac{1}{d-2} \tr(e_1 \cdot e_2)^2 \right) \lambda_1^2 
+	\\
+	& + \tr(e_1 \cdot e_2)^2
+	(\lambda_1 ~ \lambda_2) M
+	\left( \begin{array}{c} \lambda_1 \\ \lambda_2 \end{array}\right)
+	\bigg]
+\end{aligned}
+\end{equation}
+with the positive-definite $2 \times 2$ matrix
+\begin{equation}
+	M = \left( \begin{array}{cc}
+		\dfrac{d-1}{d-2} & -1 \\
+		-1 & \dfrac{d-1}{d} - \dfrac{1}{d (\Delta - 1) (\Delta - d + 1)}
+	\end{array}\right).
+\end{equation}
+There are good reasons to believe that conformal blocks computed in this way are analytic functions of $d$, at least if we restrict the intermediate operators to belong to representations that exist in $d$ dimension. As long as the unitarity bound is satisfied, the two-point function is positive-definite and its inverse must exist. The question is therefore whether the 3-point function is finite or not. UV divergences corresponding to short-distance singularities are absent in Wightman functions such as the ones we consider, but there can be IR divergences. Since these IR divergences are worse in lower dimension, we can expect that they would show up as poles in $d$.
+Apparently, choosing polarizations $e_1$ and $e_2$ that are transverse with respect to $p_1$ and $p_2$ respectively is a sufficient condition to avoid such divergences.
+
+
+\subsection*{Shadow transform}
+
+Finally, let us make a remark that simplifies the computations. As can be seen in eq.~\eqref{eq:c:twoindex}, it turns out that computing the inverse of the 2-point tensor amounts to replacing $\Delta \to d - \Delta$. This is not an accident: it has to do with the fact that every local operator $\O^\alpha$ of the theory has a non-local counterpart $\widetilde{\O}^\alpha$ with scaling dimension $d - \Delta$ and transforming in the same Lorentz representation (for real representations, otherwise in the complex-conjugate representation).
+In momentum space, the shadow transform takes a particularly simple form: schematically,
+\begin{equation}
+	\widetilde{\O}_\alpha(p) \ket{0}
+	= \frac{\O^\beta(p) \ket{0}}
+	{\llangle \O^\alpha(-p) \O^\beta(p) \rrangle},
+\end{equation}
+or using the explicit inverse 2-point function,
+\begin{equation}
+	\widetilde{\O}_\alpha(p) \ket{0}
+	= (p^2)^{d/2 - \Delta} \Pi^{-1}_{\alpha\beta}(\hat{p})
+	\O^\beta(p) \ket{0}.
+\end{equation}
+As a consequence, the 2-point function of the shadow operator equates the inverse 2-point function:
+\begin{equation}
+	\llangle \widetilde{\O}_\beta(-p) \widetilde{\O}_\alpha(p) \rrangle
+	= (p^2)^{d/2 - \Delta} \Pi^{-1}_{\beta\alpha}(\hat{p}).
+\end{equation}
+But since this is a correlation function that satisfies the same conformal Ward identities as the original 2-point function, its solution is identical upon replacing $\Delta \to d - \Delta$.
+
+Moreover, this implies in fact that the inverse 2-point function need not even be computed: the conformal block obeys
+\begin{equation}
+	G_\O = \llangle \T \left[ T_1(p_1) T_2(p_2) \right]^\dagger
+	\widetilde{\O}_\alpha(p) \rrangle
+	\llangle \O^\alpha(-p)
+	\T \left[ T_1(p_1) T_2(p_2) \right] \rrangle,
+\end{equation}
+where the first 3-point function on the right-hand side is simply the complex conjugate of the second one with the replacement $\Delta \to d - \Delta$. This procedure somehow obscures the positivity properties of the conformal blocks, but it is very convenient in practice.
+
+
+\end{document}
